@@ -8,7 +8,7 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 INTENT_SUGGESTION = "hackathon:suggestion"
 INTENT_INCREASE = "hackathon:increase_temperature"
-INTENT_DECREASE = "hackathon:decrease_temperature"
+INTENT_DECREASE = "hackathon:decreaese_temperature"
 
 def main():
 
