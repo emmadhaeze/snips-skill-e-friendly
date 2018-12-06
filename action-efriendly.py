@@ -10,6 +10,9 @@ INTENT_SUGGESTION = "hackathon:suggestion"
 INTENT_INCREASE = "hackathon:increase_temperature"
 INTENT_DECREASE = "hackathon:decreaese_temperature"
 
+global TEMPERATURE
+TEMPERATURE = 20
+
 def main():
 
     # subscribe to the intents of desire and point to the corresponding callback function
@@ -20,21 +23,30 @@ def main():
             .start()
 
 
+suggestions = ["It would be nice if you would turn off the radiator.",
+               "Tomorrow will be quite chilly, bring a sweater!",
+               "Tomorrow will be sunny, no need to turn on the radiator."]
+
+
 def user_suggestion(hermes, intent_message):
     session_id = intent_message.session_id
-    response = "User asked for suggestion."
+    response = random.choice(suggestions)
     hermes.publish_end_session(session_id, response)
 
 
 def user_increase(hermes, intent_message):
+    global TEMPERATURE
     session_id = intent_message.session_id
-    response = "User asked to increase temperature."
+    TEMPERATURE += 1
+    response = "Alright, I'm increasing the temperature to {} degrees.".format(TEMPERATURE)
     hermes.publish_end_session(session_id, response)
 
 
 def user_decrease(hermes, intent_message):
+    global TEMPERATURE
     session_id = intent_message.session_id
-    response = "User asked to decrease temperature."
+    TEMPERATURE -= 1
+    response = "Alright, I'm decreasing the temperature to {} degrees.".format(TEMPERATURE)
     hermes.publish_end_session(session_id, response)
 
 
