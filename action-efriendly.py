@@ -37,7 +37,13 @@ def user_suggestion(hermes, intent_message):
 def user_increase(hermes, intent_message):
     global TEMPERATURE
     session_id = intent_message.session_id
-    TEMPERATURE += 1
+
+    # get temperature increase if available
+    degrees = intent_message.slots.degrees.first().value
+    if degrees is None:
+        TEMPERATURE += 1
+    else:
+        TEMPERATURE += int(degrees)
     response = "Alright, I'm increasing the temperature to {} degrees.".format(TEMPERATURE)
     hermes.publish_end_session(session_id, response)
 
